@@ -1,13 +1,13 @@
 [programs.localnet]
-drift_client = "23gFaqsYmR1zrQVYiyWJ5xnEFqmuKLYoGasgewDTHD1u"
+drift_client = "5rouU9bDDcy7Z4mgGNdM8QCjy3JHQcvASVoxgXUVuCxw"
 
 [[test.genesis]]
 address = "AsW7LnXB9UA1uec9wi9MctYTgTz7YH9snhxd16GsFaGX"
 program = "./deps/protocol-v1/target/deploy/clearing_house.so"
 
 [provider]
-cluster = "localnet"
-wallet = "/Users/crisp/.config/solana/id.json"
+cluster = "devnet"
+wallet = "~/.config/solana/new_devnet.jso"
 
 [scripts]
 test = "ts-mocha -t 1000000 tests/drift-client.ts"

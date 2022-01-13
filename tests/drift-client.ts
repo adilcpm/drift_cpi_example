@@ -16,7 +16,7 @@ import {
 } from '../deps/protocol-v1/sdk';
 
 describe('drift client', () => {
-	const provider = anchor.Provider.local();
+	const provider = anchor.Provider.env();
 	anchor.setProvider(provider);
 	let usdcMint: Keypair;
 	let userUSDCAccount;
@@ -49,19 +49,19 @@ describe('drift client', () => {
 	before(async () => {
 		usdcMint = await mockUSDCMint(provider);
 		userUSDCAccount = await mockUserUSDCAccount(usdcMint, usdcAmount, provider);
-		await clearingHouse.initialize(usdcMint.publicKey, true);
+		// await clearingHouse.initialize(usdcMint.publicKey, true);
 		await clearingHouse.subscribeToAll();
 
-		const solUsd = await mockOracle(1);
-		const periodicity = new BN(60 * 60); // 1 HOUR
+		// const solUsd = await mockOracle(1);
+		// const periodicity = new BN(60 * 60); // 1 HOUR
 
-		await clearingHouse.initializeMarket(
-			marketIndex,
-			solUsd,
-			ammInitialBaseAssetAmount,
-			ammInitialQuoteAssetAmount,
-			periodicity
-		);
+		// await clearingHouse.initializeMarket(
+		// 	marketIndex,
+		// 	solUsd,
+		// 	ammInitialBaseAssetAmount,
+		// 	ammInitialQuoteAssetAmount,
+		// 	periodicity
+		// );
 
 		driftClient = new DriftClient(program, clearingHouse);
 	});
@@ -71,8 +71,12 @@ describe('drift client', () => {
 	});
 
 	it('initialize', async () => {
-		await driftClient.initialize();
+		// await driftClient.initialize();
 		const config = await driftClient.getConfig();
+		// console.log(config);
+		console.log("Drift Client Admin: " + config.admin.toString());
+		console.log("Drift Client Authority: " + config.authority.toString());
+		
 		assert(config.admin.equals(provider.wallet.publicKey));
 		assert(
 			config.collateralVault.equals(
